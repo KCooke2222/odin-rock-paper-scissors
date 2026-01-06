@@ -29,9 +29,14 @@ function playRound(humanChoice, computerChoice) {
         scissors: { rock: "lose", paper: "win", scissors: "tie" },
     };
 
-    result = results[humanChoice][computerChoice];
+    const result = results[humanChoice][computerChoice];
 
-    console.log(result)
+    const resultsDiv = document.querySelector("#results");
+    const resultText = document.createElement("p");
+
+    resultText.innerText = result;
+
+    resultsDiv.appendChild(resultText);
 
     if (result === "win") {
         humanScore += 1;
@@ -41,24 +46,13 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+const btns = document.querySelector("#btns");
 
-function playGame(rounds = 5) { 
-    for (i = 0; i < rounds; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
+btns.addEventListener("click", (e) => {
+    let choice = e.target.id;
 
-        playRound(humanSelection, computerSelection);
-    }
-    
+    let computerChoice = getComputerChoice();
 
-    if (humanScore > computerScore) {
-        console.log("You win game!");
-    }
-    else {
-        console.log("You die!")
-    }
+    playRound(choice, computerChoice);
+})
 
-    console.log(humanScore + " " + computerScore);
-}
-
-playGame()
